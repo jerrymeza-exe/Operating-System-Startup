@@ -3,13 +3,13 @@
 
 using namespace std;
 
-void systemBoot() {
+void systemBoot() {  // Simulates the system booting
     cout << "System Booting..." << endl;
     int i = 0;
-    while (i <= 100) {
+    while (i <= 100) {  //Simulates a loading progress from 0% to 100%
         cout << "Loading: " << i << "%" << endl;
         for (long j = 0; j < 1000000000; j++) { }
-        i += 20;
+        i += 20;  // Loads in increments of 20%
     }
     cout << "Boot Complete!" << endl;
 }
@@ -26,19 +26,19 @@ int main() {
     cin >> choice;
 
     if (choice == 1) {
-        bool success = authenticateUser();
+        bool success = authenticateUser();  // Attempt to authenticate user
         if (success) {
-            std::cout << "Welcome!\n";
+            std::cout << "Welcome!\n";  // Login successful
         } else {
-            std::cout << "Access denied.\n";
+            std::cout << "Access denied.\n";  // Login failed
         }
     } else if (choice == 2) {
         string newUsername, newPassword;
-        cout << "Enter a username: ";
+        cout << "Enter a username: ";  // Prompt for new user credentials
         cin >> newUsername;
         cout << "Enter a password: ";
         cin >> newPassword;
-        addUser(newUsername, newPassword);
+        addUser(newUsername, newPassword);  //adds new user to the users.txt file
     } else {
         std::cout << "Invalid Choice.\n";
     }
