@@ -33,7 +33,7 @@ From the menu, use the Terminal > New Terminal or View > Terminal menu commands.
 g++ main.cpp auth.cpp -o main
 ```
 
-## Step 3 - Run the executible:
+## Step 4 - Run the executible:
 ```sh
 ./main
 ```
