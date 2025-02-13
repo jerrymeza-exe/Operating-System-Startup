@@ -24,6 +24,10 @@ Open in VS Code:
 Open Visual Studio Code.
 Click File → Open Folder and select the downloaded/cloned repository.
 
+### Open Terminal
+You can open a terminal as follows:
+From the menu, use the Terminal > New Terminal or View > Terminal menu commands.
+
 ## Step 2 - Compile:
 ```sh
 g++ main.cpp auth.cpp -o main
