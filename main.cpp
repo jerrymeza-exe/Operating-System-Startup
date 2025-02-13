@@ -22,6 +22,7 @@ int main() {
     cout << "\n--- Startup Menu ---" << endl;
     cout << "1. Login" << endl;
     cout << "2. Create Account" << endl;
+    cout << "3. Exit" << endl;
     cout << "Enter your choice: ";
     cin >> choice;
 
@@ -39,6 +40,8 @@ int main() {
         cout << "Enter a password: ";
         cin >> newPassword;
         addUser(newUsername, newPassword);  // Adds new user to the users.txt file
+    } else if (choice == 3) {
+        std::cout << "Exiting... Goodbye!\n";
     } else {
         std::cout << "Invalid Choice.\n";
     }
