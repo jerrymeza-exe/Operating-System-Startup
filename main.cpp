@@ -38,7 +38,7 @@ int main() {
         cin >> newUsername;
         cout << "Enter a password: ";
         cin >> newPassword;
-        addUser(newUsername, newPassword);  //adds new user to the users.txt file
+        addUser(newUsername, newPassword);  // Adds new user to the users.txt file
     } else {
         std::cout << "Invalid Choice.\n";
     }
