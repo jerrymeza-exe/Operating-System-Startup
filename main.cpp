@@ -6,7 +6,7 @@ using namespace std;
 void systemBoot() {  // Simulates the system booting
     cout << "System Booting..." << endl;
     int i = 0;
-    while (i <= 100) {  //Simulates a loading progress from 0% to 100%
+    while (i <= 100) {  // Simulates a loading progress from 0% to 100%
         cout << "Loading: " << i << "%" << endl;
         for (long j = 0; j < 1000000000; j++) { }
         i += 20;  // Loads in increments of 20%
