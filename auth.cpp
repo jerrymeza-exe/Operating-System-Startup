@@ -20,14 +20,14 @@ bool authenticateUser() {
         ifstream file("users.txt");
         string savedUsername, savedPassword;
 
-        while (file >> savedUsername >> savedPassword) {
-            if (username == savedUsername && password == savedPassword) {
+        while (file >> savedUsername >> savedPassword) { // Read username and password from users.txt
+            if (username == savedUsername && password == savedPassword) { // Check if they're an exact match
                 cout << "Login successful!\n";
                 return true;
             }
         }
 
-        attempts--;
+        attempts--; // Decrease attempts if username or password are still incorrect
         cout << "Invalid: Wrong username or password. Attempts left: " << attempts << "\n";
     }
 
@@ -39,6 +39,6 @@ bool authenticateUser() {
 // Function to add user to the users.txt file acting as a database
 void addUser(string username, string password) {
     ofstream file("users.txt", ios::app);
-    file << username << " " << password << "\n";
+    file << username << " " << password << "\n"; // Write the new username and password to the file
     cout << "New user added! Welcome\n";
 }
