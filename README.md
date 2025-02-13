@@ -14,7 +14,7 @@ Simulating Computer Startup Process in C++ by Gerardo Meza &amp; Jorge Padilla
 If you have Git installed, run the following command in your terminal:
 
 ```sh
-git clone https://github.com/jerrymeza-exe/operating-system-startup.git
+git clone https://github.com/jerrymeza-exe/Operating-System-Startup.git
 ```
 ### Option 2: Download as a ZIP
 Click the Code button on the repository page.
