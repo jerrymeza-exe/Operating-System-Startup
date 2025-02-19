@@ -29,9 +29,9 @@ int main() {
     if (choice == 1) {
         bool success = authenticateUser();  // Attempt to authenticate user
         if (success) {
-            std::cout << "Welcome!\n";  // Login successful
+            cout << "Welcome!\n";  // Login successful
         } else {
-            std::cout << "Access denied.\n";  // Login failed
+            cout << "Access denied.\n";  // Login failed
         }
     } else if (choice == 2) {
         string newUsername, newPassword;
@@ -41,9 +41,9 @@ int main() {
         cin >> newPassword;
         addUser(newUsername, newPassword);  // Adds new user to the users.txt file
     } else if (choice == 3) {
-        std::cout << "Exiting... Goodbye!\n";
+        cout << "Exiting... Goodbye!\n";
     } else {
-        std::cout << "Invalid Choice.\n";
+        cout << "Invalid Choice.\n";
     }
 
     return 0;
