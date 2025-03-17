@@ -30,7 +30,7 @@ From the menu, use the Terminal > New Terminal or View > Terminal menu commands.
 
 ## Step 3 - Compile:
 ```sh
-g++ main.cpp auth.cpp process.cpp -o main
+g++ main.cpp process.cpp auth.cpp scheduler.cpp -o main
 ```
 
 ## Step 4 - Run the executible:
