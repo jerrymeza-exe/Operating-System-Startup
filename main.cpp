@@ -1,4 +1,6 @@
 #include <iostream>
+#include "scheduler.h"
+#include "process.h"
 #include "auth.h"
 
 using namespace std;
@@ -57,43 +59,12 @@ int main() {
 
     cout << "\nWelcome!" << endl;
 
-    int currentTime = 0;
+    int totalProcesses;
+    cout << "\nEnter total number of processes to simulate: ";
+    cin >> totalProcesses;
 
-    // Creating 2 processes for simulation
-    // Process ID, Arrival Time, Burst Time, Priority, Memory Required, I/O Operations
-
-    Process p1(1, 0, 10, 1, 512, false);
-    Process p2(2, 2, 5, 2, 256, true);
-    
-    // Process simulation
-    cout << "\n--- Process Simulation ---" << endl;
-
-    p1.setWaitingTime(currentTime);
-    p1.updateState("Ready");
-    p1.showProcess();
-
-    p1.updateState("Running");
-    p1.decrementRemainingTime(4);
-    p1.setTurnaroundTime(currentTime);
-    p1.showProcess();
-
-    p1.decrementRemainingTime(6);
-    currentTime += 6;
-    p1.setTurnaroundTime(currentTime);
-    p1.showProcess();
-
-    cout << "\n--- Next Process ---" << endl;
-
-    p2.setWaitingTime(currentTime);
-    p2.updateState("Ready");
-    p2.showProcess();
-
-    p2.updateState("Running");
-    p2.showProcess();
-    p2.decrementRemainingTime(5);
-    currentTime += 5;
-    p2.setTurnaroundTime(currentTime);
-    p2.showProcess();
+    Scheduling scheduler;
+    scheduler.runSimulation(totalProcesses, true); //Set to false if we dont want to run preemptive SJF\
 
     return 0;
 }
