@@ -1,8 +1,7 @@
-// process.cpp
+
 #include "process.h"
 #include <iostream>
 
-// Constructor
 Process::Process(int id, int arrival, int burst, int priorityLevel, int memory, bool io) {
     pid = id;
     arrivalTime = arrival;
@@ -14,46 +13,47 @@ Process::Process(int id, int arrival, int burst, int priorityLevel, int memory, 
     turnaroundTime = 0;
     memoryRequired = memory;
     io_operations = io;
+    ioTime = 0;
+    waitingSinceCycle = -1;
 }
 
-// Returns the process attributes
-int Process::getPid() {
+int Process::getPid() const {
     return pid;
 }
 
-int Process::getArrivalTime() {
+int Process::getArrivalTime() const {
     return arrivalTime;
 }
 
-int Process::getBurstTime() {
+int Process::getBurstTime() const {
     return burstTime;
 }
 
-int Process::getPriority() {
+int Process::getPriority() const{
     return priority;
 }
 
-string Process::getState() {
+string Process::getState() const {
     return state;
 }
 
-int Process::getRemainingTime() {
+int Process::getRemainingTime() const{
     return remainingTime;
 }
 
-int Process::getWaitingTime() {
+int Process::getWaitingTime() const {
     return waitingTime;
 }
 
-int Process::getTurnaroundTime() {
+int Process::getTurnaroundTime() const {
     return turnaroundTime;
 }
 
-int Process::getMemoryRequired() {
+int Process::getMemoryRequired() const{
     return memoryRequired;
 }
 
-bool Process::hasIOOperations() {
+bool Process::hasIOOperations() const{
     return io_operations;
 }
 
@@ -76,7 +76,7 @@ void Process::decrementRemainingTime(int timeSlice) {
 
 // Calculate waiting time for the process
 void Process::setWaitingTime(int startTime) {
-    waitingTime = startTime - arrivalTime;
+    waitingTime = turnaroundTime - burstTime;
 }
 
 // Calculate turnaround time 
@@ -93,4 +93,30 @@ void Process::showProcess() {
     cout << "Memory Required: " << memoryRequired << endl;
     cout << "I/O Operations: " << (io_operations ? "Yes" : "No") << endl;
     cout << "----------------------------------" << endl;
+}
+
+void Process::setIoTime(int time) {
+    ioTime = time;
+}
+
+int Process::getIoTime() const {
+    return ioTime;
+}
+
+void Process::decrementIoTime() {
+    if (ioTime > 0) {
+        ioTime--;
+    }
+}
+
+void Process::setWaitingSinceCycle(int cycle) {
+    waitingSinceCycle = cycle;
+}
+
+int Process::getWaitingSinceCycle() const {
+    return waitingSinceCycle;
+}
+
+void Process::setPriority(int newPriority) {
+    priority = newPriority;
 }
