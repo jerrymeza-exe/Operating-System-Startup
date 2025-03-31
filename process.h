@@ -1,4 +1,3 @@
-// process.h
 #ifndef PROCESS_H
 #define PROCESS_H
 
@@ -19,21 +18,23 @@ private:
     int turnaroundTime;
     int memoryRequired;
     bool io_operations;
+    int ioTime;
+    int waitingSinceCycle;
 
 public:
 
     Process(int id, int arrival, int burst, int priorityLevel, int memory, bool io);
 
-    int getPid();
-    int getArrivalTime();
-    int getBurstTime();
-    int getPriority();
-    string getState();
-    int getRemainingTime();
-    int getWaitingTime();
-    int getTurnaroundTime();
-    int getMemoryRequired();
-    bool hasIOOperations();
+    int getPid() const;
+    int getArrivalTime() const;
+    int getBurstTime() const;
+    int getPriority() const;
+    string getState() const;
+    int getRemainingTime() const;
+    int getWaitingTime() const;
+    int getTurnaroundTime() const;
+    int getMemoryRequired() const;
+    bool hasIOOperations() const;
 
     void setWaitingTime(int startTime);
     void setTurnaroundTime(int completionTime);
@@ -41,6 +42,15 @@ public:
     void updateState(string newState); 
     void decrementRemainingTime(int timeSlice);
     void showProcess();
+
+    void setIoTime(int time);
+    int getIoTime() const;
+    void decrementIoTime();
+
+    void setWaitingSinceCycle(int cycle);
+    int getWaitingSinceCycle() const;
+    void setPriority(int newPriority);
+
 };
 
 #endif // PROCESS_H
