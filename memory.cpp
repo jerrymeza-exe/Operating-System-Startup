@@ -19,11 +19,11 @@ bool VirtualMemory::allocateMemory(int pid, int memorySize) {
     int pagesNeeded = (memorySize + pageSize - 1) / pageSize;
     vector<PageTableEntry> pageTable;
 
-    // For each page needed, find a free frame and create a page table entry
+    // For each page needed find a free frame and create a page table entry
     for (int i = 0; i < pagesNeeded; i++) {
         int freeFrame = -1;
 
-        // Look for a free frame by looping over all frames
+        // Look for a free frame by going over all the frames
         for (int j = 0; j < maxFrames; j++) {
             if (!frameOccupied[j]) {
                 freeFrame = j;
@@ -44,24 +44,25 @@ bool VirtualMemory::allocateMemory(int pid, int memorySize) {
         page.frameNum = freeFrame;
         physicalMemory[freeFrame] = page;
         frameOccupied[freeFrame] = true;
-        fifoQueue.push_back(page); // Adding page to FIFO queue
+        // Adding page to FIFO queue
+        fifoQueue.push_back(page);
 
-        // Create a page table entry for this page
+        // Create a page table entry for the page
         PageTableEntry entry;
         entry.frameNumber = freeFrame;
         entry.valid = true;
         pageTable.push_back(entry);
     }
 
-    // Save the page table for this process
+    // Save the page table for the process
     pageTables[pid] = pageTable;
     cout << "Logical address space created for Process " << pid << " with " << pagesNeeded << " pages.\n";
     return true;
 }
 
-// Release memory for the process with the given pid
+// Release memory for the process with the given proccess id 
 void VirtualMemory::releaseMemory(int pid) {
-    // Loop through all frames and mark those occupied by this process as free
+    // Go through all frames and mark the ones busy by this process as free
     for (int i = 0; i < maxFrames; i++) {
         if (frameOccupied[i] && physicalMemory[i].pid == pid) {
             frameOccupied[i] = false;
@@ -79,11 +80,11 @@ void VirtualMemory::releaseMemory(int pid) {
     }
     fifoQueue = tempQueue;
 
-    // Remove the page table for this process
+    // Remove the page table for the process
     pageTables.erase(pid);
     cout << "Released memory for Process " << pid << ".\n";
 
-    // Remove TLB entries that belong to this process
+    // Remove TLB entries that belong to the process
     for (list<TLBEntry>::iterator it = tlb.begin(); it != tlb.end(); ) {
         if (it->pid == pid) {
             it = tlb.erase(it);
@@ -93,7 +94,7 @@ void VirtualMemory::releaseMemory(int pid) {
     }
 }
 
-// Check if a page translation for (pid, pageNumber) is available in the TLB.
+// Check if a page translation for is available in the TLB
 // If a hit is found, the entry is moved to the front
 int VirtualMemory::checkTLB(int pid, int pageNumber) {
     // Loop over each TLB entry
@@ -114,7 +115,7 @@ int VirtualMemory::checkTLB(int pid, int pageNumber) {
     return -1;
 }
 
-// Update the TLB with an entry for the given process, page, and frame.
+// Update the TLB with an entry for the given process, page, and frame
 void VirtualMemory::updateTLB(int pid, int pageNumber, int frameNumber) {
     // First remove any existing entry for this page
     for (list<TLBEntry>::iterator it = tlb.begin(); it != tlb.end(); ++it) {
@@ -124,12 +125,12 @@ void VirtualMemory::updateTLB(int pid, int pageNumber, int frameNumber) {
         }
     }
 
-    // If the TLB is full, remove the last entry
+    // If the TLB is full then remove the last entry
     if (tlb.size() >= tlbSize) {
         tlb.pop_back();
     }
 
-    // Create a new TLB entry and add it to the front
+    // Create a new entry and add it to the front of the TLB
     TLBEntry newEntry;
     newEntry.pid = pid;
     newEntry.pageNumber = pageNumber;
@@ -140,12 +141,12 @@ void VirtualMemory::updateTLB(int pid, int pageNumber, int frameNumber) {
          << " -> Frame " << frameNumber << endl;
 }
 
-// Handle a page fault for the given process and page
-// Finds a free frame or evicts an old page (FIFO) if necessary
+// Page fault handler
+// Finds a free frame or evicts an old page using FIFO if needed 
 int VirtualMemory::handlePageFault(int pid, int pageNumber) {
     int freeFrame = -1;
 
-    // Find a free frame.
+    // Find a free frame
     for (int i = 0; i < maxFrames; i++) {
         if (!frameOccupied[i]) {
             freeFrame = i;
@@ -153,7 +154,7 @@ int VirtualMemory::handlePageFault(int pid, int pageNumber) {
         }
     }
 
-    // If no free frame is available, evict the oldest page
+    // If no free frame is available then evict the oldest page
     if (freeFrame == -1) {
         // Evict the page at the front of the FIFO queue
         Page evicted = fifoQueue.front();
@@ -201,7 +202,7 @@ int VirtualMemory::translateAddress(int pid, int logicalAddress) {
     int pageNumber = logicalAddress / pageSize;
     int offset = logicalAddress % pageSize;
 
-    // First, check if the address is in the TLB
+    // First check if the address is in the TLB
     int frameFromTLB = checkTLB(pid, pageNumber);
     if (frameFromTLB != -1) {
         int physicalAddress = frameFromTLB * pageSize + offset;
@@ -210,7 +211,7 @@ int VirtualMemory::translateAddress(int pid, int logicalAddress) {
         return physicalAddress;
     }
 
-    // If the page table does not exist, print an error
+    // If the page table does not exist then print an error
     if (pageTables.find(pid) == pageTables.end()) {
         cout << "Translate: Error: No page table found for Process " << pid << ".\n";
         return -1;
